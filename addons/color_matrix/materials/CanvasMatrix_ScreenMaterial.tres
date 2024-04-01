@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bwdu30if08ucs"]
+
+[ext_resource type="Shader" path="res://addons/color_matrix/materials/ColorMatrix_ScreenShader.gdshader" id="1_qj31c"]
+
+[resource]
+shader = ExtResource("1_qj31c")
+shader_parameter/colormatrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/colormatrix_offset = Vector4(0, 0, 0, 0)

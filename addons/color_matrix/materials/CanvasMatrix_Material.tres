@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dilanyj4iosvx"]
+
+[ext_resource type="Shader" path="res://addons/color_matrix/materials/ColorMatrix_Shader.gdshader" id="1_8focd"]
+
+[resource]
+shader = ExtResource("1_8focd")
+shader_parameter/colormatrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/colormatrix_offset = Vector4(0, 0, 0, 0)
+shader_parameter/blend = 1.0

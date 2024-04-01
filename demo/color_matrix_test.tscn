@@ -1,0 +1,94 @@
+[gd_scene load_steps=10 format=3 uid="uid://cj8q0m0e5748b"]
+
+[ext_resource type="Material" uid="uid://dilanyj4iosvx" path="res://addons/color_matrix/materials/CanvasMatrix_Material.tres" id="1_bj4ik"]
+[ext_resource type="Script" path="res://demo/screenshot_maker.gd" id="1_khwhg"]
+[ext_resource type="Script" path="res://addons/color_matrix/ColorMatrixNode.gd" id="1_x2tup"]
+[ext_resource type="Script" path="res://addons/color_matrix/ColorMatrix.gd" id="2_gybpt"]
+[ext_resource type="Texture2D" uid="uid://bq6levnnc54oc" path="res://demo/bg.png" id="2_qmxty"]
+[ext_resource type="Texture2D" uid="uid://dpwqhrubkcbko" path="res://demo/godette.png" id="3_6ya41"]
+[ext_resource type="Texture2D" uid="uid://cqml081o08d6j" path="res://icon.svg" id="6_6otnd"]
+
+[sub_resource type="Resource" id="Resource_oxvxq"]
+script = ExtResource("2_gybpt")
+enabled = true
+advanced_tint = 0
+advanced_tint_amount = 1.0
+saturation = 2.0
+brightness = 0.0
+contrast = 1.0
+contrast2 = 1.0
+temperature = 0.0
+hue_shift = 0.0
+tint = Color(1, 1, 1, 1)
+opacity = 1.0
+invert = 0.0
+gamma = 1.0
+clamp_matrix = false
+duotone_enabled = false
+duotone_amount = 1.0
+duotone_light = Color(0.909237, 0.000692698, 0.913092, 1)
+duotone_dark = Color(0, 0.531423, 0.525675, 1)
+simulate_color_blindness = 0
+initial_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+initial_offset = Vector4(0, 0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_6s5of"]
+script = ExtResource("2_gybpt")
+enabled = true
+advanced_tint = 11
+advanced_tint_amount = 1.0
+saturation = 1.0
+brightness = 0.0
+contrast = 1.0
+contrast2 = 1.0
+temperature = 0.0
+hue_shift = 0.0
+tint = Color(1, 1, 1, 1)
+opacity = 1.0
+invert = 1.0
+gamma = 1.0
+clamp_matrix = false
+duotone_enabled = false
+duotone_amount = 1.0
+duotone_light = Color(1, 1, 0, 1)
+duotone_dark = Color(0, 0, 1, 1)
+simulate_color_blindness = 0
+initial_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+initial_offset = Vector4(0, 0, 0, 0)
+
+[node name="ColorMatrixTest" type="Node2D"]
+script = ExtResource("1_khwhg")
+generate_screenshots = true
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+material = ExtResource("1_bj4ik")
+script = ExtResource("1_x2tup")
+matrix = SubResource("Resource_oxvxq")
+matrix2 = SubResource("Resource_6s5of")
+
+[node name="Bg" type="Sprite2D" parent="CanvasGroup"]
+position = Vector2(587, 326)
+scale = Vector2(0.82277, 0.82277)
+texture = ExtResource("2_qmxty")
+
+[node name="Godette" type="Sprite2D" parent="CanvasGroup"]
+position = Vector2(502, 433)
+scale = Vector2(0.586538, 0.586538)
+texture = ExtResource("3_6ya41")
+
+[node name="Icon" type="Sprite2D" parent="CanvasGroup"]
+position = Vector2(1050, 558)
+texture = ExtResource("6_6otnd")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 28.0
+offset_top = 532.0
+offset_right = 177.0
+offset_bottom = 620.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.25)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 64
+text = "Style"
