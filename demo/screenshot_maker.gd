@@ -11,19 +11,21 @@ func _ready() -> void:
 func _generate_screenshots():
 	markdown = []
 	
+	$CanvasGroup.matrix = ColorMatrix.new()
+	
 	var cm: ColorMatrix = $CanvasGroup.matrix
 	cm.duotone_enabled = false
 	cm.simulate_color_blindness = ColorMatrix.ColorBlindness.NONE
 	
 	# Advanced tints.
-	for i in len(ColorMatrix.AdvancedTints):
-		var id: String = ColorMatrix.AdvancedTints.keys()[i]
-		cm.advanced_tint = i
+	for i in len(ColorMatrix.BuiltIn):
+		var id: String = ColorMatrix.BuiltIn.keys()[i]
+		cm.built_in = i
 		$Label.text = id.capitalize()
 		await take_screenshot(id.capitalize(), "adv_" + id.to_lower())
 	
 	# Duotone.
-	cm.advanced_tint = ColorMatrix.AdvancedTints.NONE
+	cm.built_in = ColorMatrix.BuiltIn.NONE
 	cm.duotone_enabled = true
 	cm.saturation = 0.0
 	$Label.text = "Duotone"

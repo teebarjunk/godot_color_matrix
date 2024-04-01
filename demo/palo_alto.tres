@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Matrix" load_steps=2 format=3 uid="uid://curnqlejg6f5n"]
+
+[ext_resource type="Script" path="res://addons/color_matrix/Matrix.gd" id="1_kbhnh"]
+
+[resource]
+script = ExtResource("1_kbhnh")
+matrix = Projection(1.05316, 0.00923386, -0.0317725, 0.00667913, 0.517208, 0.513901, 0.00980001, -0.00274193, 0.0954108, -0.0397051, 0.496804, 0.150732, 0, 0, 0, 1)
+offset = Vector4(-0.066, -0.066, -0.066, 0)

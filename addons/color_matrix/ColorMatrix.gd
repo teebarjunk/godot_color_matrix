@@ -6,26 +6,21 @@ class_name ColorMatrix
 # https://github.com/pixijs/pixijs/blob/723fc51d85b7cda0427ca1f87d92cce96567f5f7/src/filters/defaults/color-matrix/ColorMatrixFilter.ts#L18
 # https://github.com/renpy/renpy/blob/2d2867ef2121e29f884c69a7e554bee7cf823779/renpy/display/im.py#L1361
 # https://github.com/renpy/renpy/blob/2d2867ef2121e29f884c69a7e554bee7cf823779/renpy/common/00matrixcolor.rpy#L151
-enum AdvancedTints {
+enum BuiltIn {
 	NONE,
-	SEPIA,
-	BGR,
-	VINTAGE,
-	POLAROID,
+	SEPIA, ## Cowboy style.
+	BGR, ## Blue and green channel are swapped.
+	VINTAGE, ## Old timey photo.
+	POLAROID, ## Simulating a Polaroid camera.
 	TECHNICOLOR,
 	KODACHROME,
 	BROWNI,
 	LSD,
-	PREDATOR,
+	PREDATOR, ## ???
 	DESATURATE_LUMINANCE,
-	NIGHT_VISION
+	NIGHT_VISION, ## Attempt at night vision camera footage.
+	THERMAL ## Heat signature.
 }
-
-const THERMAL := Projection(
-	Vector4(2.94067, 0, 0, 0.0197754),
-	Vector4(1, 0, 0, 0),
-	Vector4(-0.898438, 0, 0, 0.632812),
-	Vector4(0, 0, 0, 1))
 
 const IDENTITY := Projection(
 	Vector4(1., 0., 0., 0),
@@ -33,25 +28,26 @@ const IDENTITY := Projection(
 	Vector4(0., 0., 1., 0.),
 	Vector4(0., 0., 0., 1.))
 
-const DESATURATE_LUMINANCE := Projection(
-	Vector4(0.2764723, 0.9297080, 0.0938197, 0), 
-	Vector4(0.2764723, 0.9297080, 0.0938197, 0), 
-	Vector4(0.2764723, 0.9297080, 0.0938197, 0), 
-	Vector4(0, 0, 0, 1))
-const DESATURATE_LUMINANCE_OFFSET := Vector4(-37.1, -37.1, -37.1, 0.0)
-
 const NIGHT_VISION := Projection(
 	Vector4(1, 0, 0, 0),
 	Vector4(1, 0, 0, 0),
 	Vector4(1, 0, 0, 0),
 	Vector4(0, 0, 0, 1))
-#const BLACK_WHITE := Projection(
-	#0.3, 0.6, 0.1, 0, 0,
-	#0.3, 0.6, 0.1, 0, 0,
-	#0.3, 0.6, 0.1, 0, 0,
-	#0, 0, 0, 1, 0 ];
-#)
+const NIGHT_VISION_OFFSET := Vector4(0.0, 0.08, 0.03, 0.0)
 
+const THERMAL := Projection(
+	Vector4(2.94067, 0, 0, 0.0197754),
+	Vector4(1, 0, 0, 0),
+	Vector4(-0.898438, 0, 0, 0.632812),
+	Vector4(0, 0, 0, 1))
+
+
+# Sepia
+#new float[] {.393f, .349f, .272f, 0, 0},
+#new float[] {.769f, .686f, .534f, 0, 0},
+#new float[] {.189f, .168f, .131f, 0, 0},
+#new float[] {0, 0, 0, 1, 0},
+#new float[] {0, 0, 0, 0, 1}
 const SEPIA := Projection(
 	Vector4(0.393, 0.7689999, 0.18899999, 0),
 	Vector4(0.349, 0.6859999, 0.16799999, 0),
@@ -63,6 +59,7 @@ const POLAROID := Projection(
 	Vector4(-0.122, 1.378, -0.122, 0),
 	Vector4(-0.016, -0.016, 1.483, 0),
 	Vector4(0, 0, 0, 1))
+const POLAROID_OFFSET := Vector4(-0.03, 0.05, -0.02, 0.0)
 
 const LSD := Projection(
 	Vector4(2, -0.4, 0.5, 0),
@@ -81,35 +78,58 @@ const TECHNICOLOR := Projection(
 	Vector4(-0.3087833385928097, 1.7658908555458428, -0.10601743074722245, 0), 
 	Vector4(-0.231103377548616, -0.7501899197440212, 1.847597816108189, 0), 
 	Vector4(0, 0, 0, 1))
-const TECHNICOLOR_OFFSET := Vector4(11.793603434377337,-70.35205161461398,30.950940869491138, 0.0)
+const TECHNICOLOR_OFFSET := Vector4(11.793603434377337,-70.35205161461398,30.950940869491138, 0.0)/255.
 
 const KODACHROME := Projection(
 	Vector4(1.1285582396593525, -0.3967382283601348, -0.03992559172921793, 0),
 	Vector4(-0.16404339962244616, 1.0835251566291304, -0.05498805115633132, 0),
 	Vector4(-0.16786010706155763, -0.5603416277695248, 1.6014850761964943, 0),
 	Vector4(0, 0, 0, 1))
-const KODACHROME_OFFSET := Vector4(63.72958762196502, 24.732407896706203, 35.62982807460946, 0)
+const KODACHROME_OFFSET := Vector4(63.72958762196502, 24.732407896706203, 35.62982807460946, 0)/255.
 
 const BROWNI := Projection(
 	Vector4(0.5997023498159715, 0.34553243048391263, -0.2708298674538042, 0),
 	Vector4(-0.037703249837783157, 0.8609577587992641, 0.15059552388459913, 0),
 	Vector4(0.24113635128153335, -0.07441037908422492, 0.44972182064877153, 0),
 	Vector4(0, 0, 0, 1))
-const BROWNI_OFFSET := Vector4(47.43192855600873, -36.96841498319127, -7.562075277591283, 0.0)
+const BROWNI_OFFSET := Vector4(47.43192855600873, -36.96841498319127, -7.562075277591283, 0.0)/255.
 
 const VINTAGE := Projection(
 	Vector4(0.6279345635605994, 0.3202183420819367, -0.03965408211312453, 0),
 	Vector4(0.02578397704808868, 0.6441188644374771, 0.03259127616149294, 0),
 	Vector4(0.0466055556782719, -0.0851232987247891, 0.5241648018700465, 0),
 	Vector4(0, 0, 0, 1))
-const VINTAGE_OFFSET := Vector4(9.651285835294123, 7.462829176470591, 5.159190588235296, 0.0)
+const VINTAGE_OFFSET := Vector4(9.651285835294123, 7.462829176470591, 5.159190588235296, 0.0)/255.
 
 const PREDATOR := Projection(
 	Vector4(11.224130630493164, -4.794486999511719, -2.8746118545532227, 0.0),
 	Vector4(-3.6330697536468506, 9.193157196044922, -2.951810836791992, 0.0),
 	Vector4(-3.2184197902679443, -4.2375030517578125, 7.476448059082031, 0.0),
 	Vector4(0, 0, 0, 1))
-const PREDATOR_OFFSET := Vector4(0.40342438220977783, -1.316135048866272, 0.8044459223747253, 0.0)
+const PREDATOR_OFFSET := Vector4(0.40342438220977783, -1.316135048866272, 0.8044459223747253, 0.0)/255.
+
+const DESATURATE_LUMINANCE := Projection(
+	Vector4(0.2764723, 0.9297080, 0.0938197, 0), 
+	Vector4(0.2764723, 0.9297080, 0.0938197, 0), 
+	Vector4(0.2764723, 0.9297080, 0.0938197, 0), 
+	Vector4(0., 0., 0., 1))
+const DESATURATE_LUMINANCE_OFFSET := Vector4(-37.1, -37.1, -37.1, 0.0)/255.
+
+## Converts black pixels to opaque.
+const OPACITY_FROM_BLACK := Projection(
+	Vector4(0., 0., 0., 1.),
+	Vector4(0., 0., 0., 1.),
+	Vector4(0., 0., 0., 1.),
+	Vector4(1., 1., 1., 0.))
+	
+	#Vector4(1., 0., 0., -1.),
+	#Vector4(0., 1., 0., -1.),
+	#Vector4(0., 0., 1., -1.),
+	#Vector4(0., 0., 0., 1.)
+#ColorMatrix1=1;0;0;-1;0
+#ColorMatrix2=0;1;0;-1;0
+#ColorMatrix3=0;0;1;-1;0
+#)
 
 #region Color Blindness.
 enum ColorBlindness {
@@ -174,28 +194,29 @@ const CLRBLND_ACHROMATOMALY := Projection(
 	Vector4(0.0, 0.0, 0.0, 1.0))
 #endregion
 
-@export var enabled := true:
-	set(e):
-		enabled = e
-		emit_changed()
-
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_READ_ONLY)
-var colormatrix := Projection.IDENTITY
-
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_READ_ONLY)
-var colormatrix_offset := Vector4.ZERO
-
 ## Prebuilt color effects to build off of.
-@export var advanced_tint := AdvancedTints.NONE:
+@export var built_in := BuiltIn.NONE:
 	set(a):
-		advanced_tint = a
+		built_in = a
 		_update()
 
 ## Tweak the intensity.
 ## Going over 1.0 might look bad.
-@export_range(-1.0, 2.0) var advanced_tint_amount := 1.0:
+@export_range(-1.0, 2.0) var built_in_amount := 1.0:
 	set(a):
-		advanced_tint_amount = a
+		built_in_amount = a
+		_update()
+
+## Multiply with a custom matrix.
+## Done after the initial_matrix.
+@export var custom: Matrix:
+	set(c):
+		custom = c
+		_update()
+
+@export_range(-1.0, 2.0) var custom_amount := 1.0:
+	set(a):
+		custom_amount = a
 		_update()
 
 ## Less than 1.0 desatures the colors to black and white.
@@ -240,10 +261,17 @@ var colormatrix_offset := Vector4.ZERO
 		tint = t
 		_update()
 
+@export_group("Opacity", "opacity")
 ## Modify alpha.
 @export_range(0.0, 1.0) var opacity := 1.0:
 	set(o):
 		opacity = o
+		_update()
+
+## Black pixels become transparent.
+@export_range(0.0, 1.0) var opacity_from_black := 0.0:
+	set(o):
+		opacity_from_black = o
 		_update()
 
 @export_range(0.0, 1.0) var invert := 0.0:
@@ -264,6 +292,8 @@ var colormatrix_offset := Vector4.ZERO
 
 @export_group("Duotone", "duotone_")
 ## Blends a grayscale image between two tones.
+##
+## Make sure you are using some kind of desaturation matrix first, or this won't look right.
 @export var duotone_enabled := false:
 	set(de):
 		duotone_enabled = de
@@ -274,11 +304,13 @@ var colormatrix_offset := Vector4.ZERO
 		duotone_amount = da
 		_update()
 
+## White parts of image will start as this color.
 @export var duotone_light := Color.YELLOW:
 	set(tl):
 		duotone_light = tl
 		_update()
 
+## Black parts of image will end as this color.
 @export var duotone_dark := Color.BLUE:
 	set(td):
 		duotone_dark = td
@@ -291,36 +323,49 @@ var colormatrix_offset := Vector4.ZERO
 		_update()
 
 @export_group("Initial", "initial_")
-## Advanced use.
-@export var initial_matrix := Projection.IDENTITY:
+## (Advanced) Initial matrix that will be modified by the settings.
+@export var initial_matrix := Matrix.new():
 	set(i):
 		initial_matrix = i
-		_update()
+		if initial_matrix:
+			initial_matrix.changed.connect(_update, CONNECT_PERSIST)
 
-## Advanced use.
-@export var initial_offset := Vector4.ZERO:
-	set(i):
-		initial_offset = i
-		_update()
-
-func _init(mat := IDENTITY) -> void:
-	colormatrix = mat
+@export_group("Result", "result_")
+## Changes to this won't be preserved.
+## Modify the initial_matrix instead.
+## But do use this to save results you like, for easier usage later.
+@export var result_matrix := Matrix.new():
+	set(r):
+		result_matrix = r
+		if result_matrix:
+			# This will simply reset the entire thing.
+			# Changes won't be preserved.
+			result_matrix.changed.emit(_update.call_deferred, CONNECT_PERSIST)
 
 func _update():
-	colormatrix = initial_matrix
-	colormatrix_offset = initial_offset * 256.0
+	# Create a new one in case user saved previous as a resource.
+	# Otherwise they will unintentionally edit their saved resource.
+	result_matrix = Matrix.new()
+	result_matrix.matrix = initial_matrix.matrix
+	result_matrix.offset = initial_matrix.offset
+	
+	if custom and custom_amount != 0.0:
+		if custom_amount == 1:
+			result_matrix.multiply(custom)
+		else:
+			_adv_lerp(custom.matrix, custom.offset, custom_amount)
 	
 	if gamma != 1.0:
-		colormatrix *= mat_gamma(gamma)
+		result_matrix.multiply(mat_gamma(gamma))
 	
 	if saturation != 1.0:
-		colormatrix *= mat_saturation(saturation)
+		result_matrix.multiply(mat_saturation(saturation))
 	
 	if hue_shift != 0.0:
-		colormatrix *= mat_hue(hue_shift)
+		result_matrix.multiply(mat_hue(hue_shift))
 		
 	if contrast != 1.:
-		colormatrix *= mat_contrast(contrast)
+		result_matrix.multiply(mat_contrast(contrast))
 	
 	if contrast2 != 1.:
 		var amount := 1.0 - contrast2
@@ -328,97 +373,92 @@ func _update():
 		if contrast2 < 1.0:
 			amount = contrast2
 			scale_factor = 1.0 - contrast2
-		colormatrix *= Projection(
+		result_matrix.multiply(Projection(
 			Vector4(scale_factor, 0.0, 0.0, 0.0),
 			Vector4(0.0, scale_factor, 0.0, 0.0),
 			Vector4(0.0, 0.0, scale_factor, 0.0),
-			Vector4(0.0, 0.0, 0.0, 1.0))
+			Vector4(0.0, 0.0, 0.0, 1.0)))
 		# Offset vector for decreasing darks
-		colormatrix_offset += Vector4(amount, amount, amount, 0.0) * 256.0
+		result_matrix.offset += Vector4(amount, amount, amount, 0.0)
 	
 	if temperature != 0.:
-		colormatrix *= mat_temp(temperature)
+		result_matrix.multiply(mat_temp(temperature))
 	
 	if invert != 0.:
-		colormatrix *= mat_invert(invert)
+		result_matrix.multiply(mat_invert(invert))
 	
 	if tint != Color.WHITE:
-		colormatrix *= mat_tint(tint)
+		result_matrix.multiply(mat_tint(tint))
 	
 	if brightness != 0.0:
-		colormatrix *= mat_brightness(brightness)
+		result_matrix.multiply(mat_brightness(brightness))
 	
 	if opacity != 1.0:
-		colormatrix *= mat_opacity(opacity)
+		result_matrix.multiply(mat_opacity(opacity))
 	
-	if advanced_tint != AdvancedTints.NONE:
-		match advanced_tint:
-			AdvancedTints.SEPIA: _adv_lerp(SEPIA)
-			AdvancedTints.POLAROID: _adv_lerp(POLAROID)
-			AdvancedTints.BGR: _adv_lerp(BGR)
-			AdvancedTints.LSD: _adv_lerp(LSD)
-			AdvancedTints.VINTAGE: _adv_lerp(VINTAGE)
-			AdvancedTints.NIGHT_VISION: _adv_lerp(NIGHT_VISION)
-			AdvancedTints.TECHNICOLOR: _adv_lerp2(TECHNICOLOR, TECHNICOLOR_OFFSET)
-			AdvancedTints.KODACHROME: _adv_lerp2(KODACHROME, KODACHROME_OFFSET)
-			AdvancedTints.BROWNI: _adv_lerp2(BROWNI, BROWNI_OFFSET)
-			AdvancedTints.DESATURATE_LUMINANCE: _adv_lerp2(DESATURATE_LUMINANCE, DESATURATE_LUMINANCE_OFFSET)
-			AdvancedTints.PREDATOR: _adv_lerp2(PREDATOR, PREDATOR_OFFSET)
+	if opacity_from_black != 0.0:
+		result_matrix.multiply(mat_lerp(Projection.IDENTITY, OPACITY_FROM_BLACK, opacity_from_black))
+	
+	if built_in != BuiltIn.NONE:
+		match built_in:
+			BuiltIn.SEPIA: _adv_lerp(SEPIA)
+			BuiltIn.BGR: _adv_lerp(BGR)
+			BuiltIn.LSD: _adv_lerp(LSD)
+			BuiltIn.VINTAGE: _adv_lerp(VINTAGE)
+			BuiltIn.THERMAL: _adv_lerp(THERMAL)
+			# Following matrices have offsets.
+			BuiltIn.POLAROID: _adv_lerp(POLAROID, POLAROID_OFFSET)
+			BuiltIn.NIGHT_VISION: _adv_lerp(NIGHT_VISION, NIGHT_VISION_OFFSET)
+			BuiltIn.TECHNICOLOR: _adv_lerp(TECHNICOLOR, TECHNICOLOR_OFFSET)
+			BuiltIn.KODACHROME: _adv_lerp(KODACHROME, KODACHROME_OFFSET)
+			BuiltIn.BROWNI: _adv_lerp(BROWNI, BROWNI_OFFSET)
+			BuiltIn.DESATURATE_LUMINANCE: _adv_lerp(DESATURATE_LUMINANCE, DESATURATE_LUMINANCE_OFFSET)
+			BuiltIn.PREDATOR: _adv_lerp(PREDATOR, PREDATOR_OFFSET)
 	
 	if duotone_enabled:
 		if duotone_amount == 1.0:
-			colormatrix *= mat_duotone(duotone_dark, duotone_light)
+			result_matrix.multiply(mat_duotone(duotone_dark, duotone_light))
 		elif duotone_amount > 0.0:
-			colormatrix *= mat_lerp(IDENTITY, mat_duotone(duotone_dark, duotone_light), duotone_amount)
+			result_matrix.multiply(mat_lerp(IDENTITY, mat_duotone(duotone_dark, duotone_light), duotone_amount))
 	
 	if clamp_matrix:
-		for i in 4:
-			for j in 4:
-				colormatrix[i][j] = clampf(colormatrix[i][j], 0.0, 1.0)
+		result_matrix.clamp_values()
 	
 	if simulate_color_blindness != ColorBlindness.NONE:
 		match simulate_color_blindness:
-			ColorBlindness.DEUTERANOPIA: colormatrix *= CLRBLND_DEUTERANOPIA 
-			ColorBlindness.PROTANOPIA: colormatrix *= CLRBLND_PROTANOPIA   
-			ColorBlindness.DEUTERANOMALY: colormatrix *= CLRBLND_DEUTERANOMALY
-			ColorBlindness.PROTANOMALY: colormatrix *= CLRBLND_PROTANOMALY  
-			ColorBlindness.TRITANOPIA: colormatrix *= CLRBLND_TRITANOPIA   
-			ColorBlindness.TRITANOMALY: colormatrix *= CLRBLND_TRITANOMALY  
-			ColorBlindness.ACHROMATOPSIA: colormatrix *= CLRBLND_ACHROMATOPSIA
-			ColorBlindness.ACHROMATOMALY: colormatrix *= CLRBLND_ACHROMATOMALY
+			ColorBlindness.DEUTERANOPIA: result_matrix.multiply(CLRBLND_DEUTERANOPIA)
+			ColorBlindness.PROTANOPIA: result_matrix.multiply(CLRBLND_PROTANOPIA)
+			ColorBlindness.DEUTERANOMALY: result_matrix.multiply(CLRBLND_DEUTERANOMALY)
+			ColorBlindness.PROTANOMALY: result_matrix.multiply(CLRBLND_PROTANOMALY)
+			ColorBlindness.TRITANOPIA: result_matrix.multiply(CLRBLND_TRITANOPIA)
+			ColorBlindness.TRITANOMALY: result_matrix.multiply(CLRBLND_TRITANOMALY)
+			ColorBlindness.ACHROMATOPSIA: result_matrix.multiply(CLRBLND_ACHROMATOPSIA)
+			ColorBlindness.ACHROMATOMALY: result_matrix.multiply(CLRBLND_ACHROMATOMALY)
 	
-	# Convert from 0-255 space to 0.0-1.0 space.
-	colormatrix_offset /= 256.0
 	emit_changed()
 
-static func _get_tool_buttons():
-	return ["print_matrix"]
+func _adv_lerp(mat: Projection, off := Vector4.ZERO, amount = null):
+	if amount == null:
+		amount = built_in_amount
+	
+	if amount == 1.0:
+		result_matrix.multiply(mat)
+		result_matrix.offset += off
+	
+	elif amount > 0.0:
+		result_matrix.multiply(mat_lerp(IDENTITY, mat, amount))
+		result_matrix.offset += result_matrix.offset.lerp(off, amount)
 
-func print_matrix():
-	print(var_to_str({"matrix": colormatrix, "offset": colormatrix_offset}))
-
-func _adv_lerp(mat: Projection):
-	if advanced_tint_amount == 1.0:
-		colormatrix *= mat
-	elif advanced_tint_amount > 0.0:
-		colormatrix *= mat_lerp(IDENTITY, mat, advanced_tint_amount)
-
-func _adv_lerp2(mat: Projection, off: Vector4):
-	if advanced_tint_amount == 1.0:
-		colormatrix *= mat
-		colormatrix_offset += off
-	elif advanced_tint_amount > 0.0:
-		colormatrix *= mat_lerp(IDENTITY, mat, advanced_tint_amount)
-		colormatrix_offset += colormatrix_offset.lerp(off, advanced_tint_amount)
-
+## Apply to the nodes material shader.
+## Will automagically set the material if there is none.
 func apply(node: Node, param_mat := "colormatrix", param_off := "colormatrix_offset"):
-	mat_apply(node, colormatrix, colormatrix_offset, param_mat, param_off)
+	mat_apply_to_material(node, result_matrix.matrix, result_matrix.offset, param_mat, param_off)
 
 ## Lerp a matrix and it's offset.
 func apply_lerp(node: Node, other: ColorMatrix, amount: float, param_mat := "colormatrix", param_off := "colormatrix_offset"):
-	var off := colormatrix_offset.lerp(other.colormatrix_offset, amount)
-	var lmat := mat_lerp(colormatrix, other.colormatrix, amount)
-	mat_apply(node, lmat, off, param_mat, param_off)
+	var lmat := mat_lerp(result_matrix.matrix, other.result_matrix.matrix, amount)
+	var off := result_matrix.offset.lerp(other.result_matrix.offset, amount)
+	mat_apply_to_material(node, lmat, off, param_mat, param_off)
 
 static func mat_lerp(a: Projection, b: Projection, amount: float) -> Projection:
 	return Projection(
@@ -426,10 +466,9 @@ static func mat_lerp(a: Projection, b: Projection, amount: float) -> Projection:
 		a.y.lerp(b.y, amount),
 		a.z.lerp(b.z, amount),
 		a.w.lerp(b.w, amount))
-	
 
 ## Apply a matrix to a node.
-static func mat_apply(node: Node, mat: Projection, off: Vector4, param_mat := "colormatrix", param_off: String = "colormatrix_offset"):
+static func mat_apply_to_material(node: Node, prj: Projection, off: Vector4, param_prj := "colormatrix", param_off: String = "colormatrix_offset"):
 	if not "material" in node:
 		push_error("Can't apply ColorMatrix to node %s." % node)
 		return
@@ -442,7 +481,7 @@ static func mat_apply(node: Node, mat: Projection, off: Vector4, param_mat := "c
 	
 	if node.material is ShaderMaterial:
 		var material: ShaderMaterial = node.material
-		material.set_shader_parameter(param_mat, mat)
+		material.set_shader_parameter(param_prj, prj)
 		material.set_shader_parameter(param_off, off)
 
 ## Creates a Tint matrix.
@@ -480,17 +519,6 @@ static func mat_saturation(value := 0.0, desat := DESAT1) -> Projection:
 		Vector4(r0, g0, b1, 0),
 		Vector4(0, 0, 0, 1))
 
-#static func mat_matrix_film(amount := 1.0):
-	#var r: = pow(1./amount, 3.0/2.0)
-	#var g: = pow(1./amount, 4.0/5.0)
-	#var b: = pow(1./amount, 3.0/2.0)
-	#return Projection(
-		#Vector4(r, 0, 0, 0),
-		#Vector4(0, g, 0, 0),
-		#Vector4(0, 0, b, 0),
-		#Vector4(0, 0, 0, 1))
-	
-
 # Monochrome
 #[Vector4(0.299, 0.587, 0.114, 0),
  #Vector4(0.299, 0.587, 0.114, 0),
@@ -501,25 +529,6 @@ static func mat_saturation(value := 0.0, desat := DESAT1) -> Projection:
 #ColorMatrix1=1;0;0;-1;0
 #ColorMatrix2=0;1;0;-1;0
 #ColorMatrix3=0;0;1;-1;0
-
-#;Polaroid Color
-#ColorMatrix1=1.438;-0.062;-0.062;0;0
-#ColorMatrix2=-0.122;1.378;-0.122;0;0
-#ColorMatrix3=-0.016;-0.016;1.483;0;0
-#ColorMatrix5=-0.03;0.05;-0.02;0;1
-
-#{.3f, .3f, .3f, 0, 0},
-#new float[] {.59f, .59f, .59f, 0, 0},
-#new float[] {.11f, .11f, .11f, 0, 0},
-#new float[] {0, 0, 0, 1, 0},
-#new float[] {0, 0, 0, 0, 1}
-
-# Sepia
-#new float[] {.393f, .349f, .272f, 0, 0},
-#new float[] {.769f, .686f, .534f, 0, 0},
-#new float[] {.189f, .168f, .131f, 0, 0},
-#new float[] {0, 0, 0, 1, 0},
-#new float[] {0, 0, 0, 0, 1}
 
 ## Creates a Brightness matrix.
 static func mat_brightness(value := 0.0) -> Projection:
@@ -609,20 +618,6 @@ static func mat_invert(value := 0.0) -> Projection:
 		Vector4(0, d, 0, value),
 		Vector4(0, 0, d, value),
 		Vector4(0, 0, 0, 1))
-
-#static func mat_tone(desaturation := 0.2, toned := 0.15, light := Color("#FFE580"), dark := Color("#338000")) -> Projection:
-	#var lr := light.r
-	#var lg := light.g
-	#var lb := light.b
-	#var dr := dark.r
-	#var dg := dark.g
-	#var db := dark.b
-	#return Projection(
-		#Vector4(0.3, 0.59, 0.11, 0),
-		#Vector4(lr, lg, lb, desaturation),
-		#Vector4(db, db, db, toned),
-		#Vector4(lr - dr, lg - dg, lb - db, 0))
-
 
 static func mat_temp(v := 0.) -> Projection:
 	return Projection(
