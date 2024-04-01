@@ -1,4 +1,7 @@
 # Color Matrix v1.
+
+**Scroll down for previews**
+
 Apply and blend matrices to colorize a scenes or images.
 
 No bulky complex shaders that struggle to blend together. Use easy handles to create matrices which make blending easy!
@@ -11,6 +14,8 @@ No bulky complex shaders that struggle to blend together. Use easy handles to cr
 - Fast blending by using Godot's built in Projection class for matrix mult.
 - Color blindness simulators.
 - Automatic material setup for CanvasGroup.
+
+![](./demo/screenshots/editor.png)
 
 # Previews
 | | | |

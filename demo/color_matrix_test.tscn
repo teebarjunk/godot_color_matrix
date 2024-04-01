@@ -11,7 +11,7 @@
 [sub_resource type="Resource" id="Resource_oxvxq"]
 script = ExtResource("2_gybpt")
 enabled = true
-advanced_tint = 0
+advanced_tint = 11
 advanced_tint_amount = 1.0
 saturation = 2.0
 brightness = 0.0
@@ -24,10 +24,10 @@ opacity = 1.0
 invert = 0.0
 gamma = 1.0
 clamp_matrix = false
-duotone_enabled = false
+duotone_enabled = true
 duotone_amount = 1.0
-duotone_light = Color(0.909237, 0.000692698, 0.913092, 1)
-duotone_dark = Color(0, 0.531423, 0.525675, 1)
+duotone_light = Color(1, 1, 0, 1)
+duotone_dark = Color(0, 0, 1, 1)
 simulate_color_blindness = 0
 initial_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 initial_offset = Vector4(0, 0, 0, 0)
