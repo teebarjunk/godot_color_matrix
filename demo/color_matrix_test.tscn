@@ -9,12 +9,12 @@
 [ext_resource type="Script" path="res://addons/color_matrix/resources/ColorMatrix.gd" id="5_c50vj"]
 [ext_resource type="Texture2D" uid="uid://cqml081o08d6j" path="res://icon.svg" id="6_6otnd"]
 
-[sub_resource type="Resource" id="Resource_6bg3d"]
+[sub_resource type="Resource" id="Resource_yt3k1"]
 script = ExtResource("4_b7r7c")
 matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 offset = Vector4(0, 0, 0, 0)
 
-[sub_resource type="Resource" id="Resource_8vdj7"]
+[sub_resource type="Resource" id="Resource_3kldh"]
 script = ExtResource("4_b7r7c")
 matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 offset = Vector4(0, 0, 0, 0)
@@ -38,11 +38,11 @@ gamma = 1.0
 clamp_matrix = false
 duotone_enabled = false
 duotone_amount = 1.0
-duotone_light = Color(1, 1, 0, 1)
-duotone_dark = Color(0, 0, 1, 1)
+duotone_light = Color(1.07813e-05, 0.996881, 0.81382, 1)
+duotone_dark = Color(0.756138, 0, 0.393433, 1)
 simulate_color_blindness = 0
-initial_matrix = SubResource("Resource_6bg3d")
-result_matrix = SubResource("Resource_8vdj7")
+initial_matrix = SubResource("Resource_yt3k1")
+result_matrix = SubResource("Resource_3kldh")
 
 [sub_resource type="Resource" id="Resource_2lq30"]
 script = ExtResource("4_b7r7c")

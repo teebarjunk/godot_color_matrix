@@ -337,10 +337,6 @@ const CLRBLND_ACHROMATOMALY := Projection(
 @export var result_matrix := Matrix.new():
 	set(r):
 		result_matrix = r
-		if result_matrix:
-			# This will simply reset the entire thing.
-			# Changes won't be preserved.
-			result_matrix.changed.emit(_update.call_deferred, CONNECT_PERSIST)
 
 func _init(kwargs := {}) -> void:
 	for prop in kwargs:
