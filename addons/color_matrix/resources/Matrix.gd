@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/color_matrix/matrix.svg")
+@icon("../icons/matrix_icon.svg")
 extends Resource
 class_name Matrix
 # TODO:

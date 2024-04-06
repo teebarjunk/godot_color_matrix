@@ -1,7 +1,8 @@
 @tool
 @icon("res://addons/color_matrix/color_matrix_icon.svg")
-extends Node
-class_name ColorMatrixNode
+extends CanvasGroup
+class_name ColorMatrixCanvas
+## CanvasGroup that will have it's children colorized.
 
 ## An operation to apply to all the pixels.
 @export var matrix: ColorMatrix:
@@ -50,6 +51,10 @@ class_name ColorMatrixNode
 var tween: Tween
 
 func play_colormatrix_tween(backwards := false):
+	if not matrix or not matrix2:
+		push_error("Blend requires both matrices to be setup.")
+		return
+	
 	if tween:
 		tween.kill()
 	tween = create_tween()

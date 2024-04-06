@@ -6,4 +6,3 @@
 shader = ExtResource("1_8focd")
 shader_parameter/colormatrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 shader_parameter/colormatrix_offset = Vector4(0, 0, 0, 0)
-shader_parameter/blend = 1.0

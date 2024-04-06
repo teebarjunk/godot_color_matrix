@@ -1,71 +1,87 @@
-[gd_scene load_steps=12 format=3 uid="uid://cj8q0m0e5748b"]
+[gd_scene load_steps=15 format=3 uid="uid://cj8q0m0e5748b"]
 
-[ext_resource type="Material" uid="uid://dilanyj4iosvx" path="res://addons/color_matrix/materials/CanvasMatrix_Material.tres" id="1_bj4ik"]
 [ext_resource type="Script" path="res://demo/screenshot_maker.gd" id="1_khwhg"]
-[ext_resource type="Script" path="res://addons/color_matrix/ColorMatrixNode.gd" id="1_x2tup"]
-[ext_resource type="Script" path="res://addons/color_matrix/ColorMatrix.gd" id="2_gybpt"]
+[ext_resource type="Script" path="res://addons/color_matrix/nodes/ColorMatrixCanvas.gd" id="1_x2tup"]
+[ext_resource type="Material" uid="uid://bwdu30if08ucs" path="res://addons/color_matrix/materials/CanvasMatrix_ScreenMaterial.tres" id="2_pj7oj"]
 [ext_resource type="Texture2D" uid="uid://bq6levnnc54oc" path="res://demo/bg.png" id="2_qmxty"]
 [ext_resource type="Texture2D" uid="uid://dpwqhrubkcbko" path="res://demo/godette.png" id="3_6ya41"]
-[ext_resource type="Script" path="res://addons/color_matrix/Matrix.gd" id="4_08nus"]
+[ext_resource type="Script" path="res://addons/color_matrix/resources/Matrix.gd" id="4_b7r7c"]
+[ext_resource type="Script" path="res://addons/color_matrix/resources/ColorMatrix.gd" id="5_c50vj"]
 [ext_resource type="Texture2D" uid="uid://cqml081o08d6j" path="res://icon.svg" id="6_6otnd"]
 
-[sub_resource type="Resource" id="Resource_rmnfi"]
-script = ExtResource("4_08nus")
+[sub_resource type="Resource" id="Resource_6bg3d"]
+script = ExtResource("4_b7r7c")
 matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 offset = Vector4(0, 0, 0, 0)
 
-[sub_resource type="Resource" id="Resource_meopp"]
-script = ExtResource("4_08nus")
-matrix = Projection(0.396354, 0.991371, 0.116387, 0.00149535, 0.116671, 0.29182, 0.0342597, 0.405284, 0.239922, 0.6001, 0.0704519, 0.215384, 0, 0, 0, 1)
-offset = Vector4(-0.21149, -0.21149, -0.21149, 0)
+[sub_resource type="Resource" id="Resource_8vdj7"]
+script = ExtResource("4_b7r7c")
+matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+offset = Vector4(0, 0, 0, 0)
 
-[sub_resource type="Resource" id="Resource_iro77"]
-script = ExtResource("2_gybpt")
-built_in = 10
+[sub_resource type="Resource" id="Resource_hek82"]
+script = ExtResource("5_c50vj")
+built_in = 0
 built_in_amount = 1.0
 custom_amount = 1.0
-saturation = 0.47
+saturation = 1.0
 brightness = 0.0
 contrast = 1.0
-contrast2 = 1.066
+contrast2 = 1.0
 temperature = 0.0
 hue_shift = 0.0
 tint = Color(1, 1, 1, 1)
 opacity = 1.0
 opacity_from_black = 0.0
 invert = 0.0
-gamma = 1.087
+gamma = 1.0
 clamp_matrix = false
-duotone_enabled = true
+duotone_enabled = false
 duotone_amount = 1.0
-duotone_light = Color(1, 0.699204, 0.819802, 1)
-duotone_dark = Color(0.00149535, 0.405284, 0.215384, 1)
+duotone_light = Color(1, 1, 0, 1)
+duotone_dark = Color(0, 0, 1, 1)
 simulate_color_blindness = 0
-initial_matrix = SubResource("Resource_rmnfi")
-result_matrix = SubResource("Resource_meopp")
+initial_matrix = SubResource("Resource_6bg3d")
+result_matrix = SubResource("Resource_8vdj7")
+
+[sub_resource type="Resource" id="Resource_2lq30"]
+script = ExtResource("4_b7r7c")
+matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+offset = Vector4(0, 0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_lhvfe"]
+script = ExtResource("4_b7r7c")
+matrix = Projection(0.393, 0.769, 0.189, 0, 0.349, 0.686, 0.168, 0, 0.272, 0.534, 0.131, 0, 0, 0, 0, 1)
+offset = Vector4(0, 0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_acw3b"]
+script = ExtResource("5_c50vj")
+built_in = 1
+built_in_amount = 1.0
+custom_amount = 1.0
+saturation = 1.0
+brightness = 0.0
+contrast = 1.0
+contrast2 = 1.0
+temperature = 0.0
+hue_shift = 0.0
+tint = Color(1, 1, 1, 1)
+opacity = 1.0
+opacity_from_black = 0.0
+invert = 0.0
+gamma = 1.0
+clamp_matrix = false
+duotone_enabled = false
+duotone_amount = 1.0
+duotone_light = Color(1, 1, 0, 1)
+duotone_dark = Color(0, 0, 1, 1)
+simulate_color_blindness = 0
+initial_matrix = SubResource("Resource_2lq30")
+result_matrix = SubResource("Resource_lhvfe")
 
 [node name="ColorMatrixTest" type="Node2D"]
 script = ExtResource("1_khwhg")
 generate_screenshots = true
-
-[node name="CanvasGroup" type="CanvasGroup" parent="."]
-material = ExtResource("1_bj4ik")
-script = ExtResource("1_x2tup")
-matrix = SubResource("Resource_iro77")
-
-[node name="Bg" type="Sprite2D" parent="CanvasGroup"]
-position = Vector2(587, 326)
-scale = Vector2(0.82277, 0.82277)
-texture = ExtResource("2_qmxty")
-
-[node name="Godette" type="Sprite2D" parent="CanvasGroup"]
-position = Vector2(502, 433)
-scale = Vector2(0.586538, 0.586538)
-texture = ExtResource("3_6ya41")
-
-[node name="Icon" type="Sprite2D" parent="CanvasGroup"]
-position = Vector2(1050, 558)
-texture = ExtResource("6_6otnd")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 28.0
@@ -79,3 +95,23 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 64
 text = "Style"
+
+[node name="ColorMatrixCanvas" type="CanvasGroup" parent="."]
+material = ExtResource("2_pj7oj")
+script = ExtResource("1_x2tup")
+matrix = SubResource("Resource_hek82")
+matrix2 = SubResource("Resource_acw3b")
+
+[node name="Bg" type="Sprite2D" parent="ColorMatrixCanvas"]
+position = Vector2(587, 326)
+scale = Vector2(0.82277, 0.82277)
+texture = ExtResource("2_qmxty")
+
+[node name="Godette" type="Sprite2D" parent="ColorMatrixCanvas"]
+position = Vector2(502, 433)
+scale = Vector2(0.586538, 0.586538)
+texture = ExtResource("3_6ya41")
+
+[node name="Icon" type="Sprite2D" parent="ColorMatrixCanvas"]
+position = Vector2(1050, 558)
+texture = ExtResource("6_6otnd")

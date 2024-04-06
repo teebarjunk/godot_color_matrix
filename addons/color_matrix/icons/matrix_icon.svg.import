@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://btixhstvabi8r"
-path="res://.godot/imported/matrix.svg-af2348500ab9fbb317c88bdcdf12a4dc.ctex"
+path="res://.godot/imported/matrix_icon.svg-2dcacbbbe9190a1f190113d914d06725.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/color_matrix/matrix.svg"
-dest_files=["res://.godot/imported/matrix.svg-af2348500ab9fbb317c88bdcdf12a4dc.ctex"]
+source_file="res://addons/color_matrix/icons/matrix_icon.svg"
+dest_files=["res://.godot/imported/matrix_icon.svg-2dcacbbbe9190a1f190113d914d06725.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Matrix" load_steps=2 format=3 uid="uid://ekrwt2all2p2"]
 
-[ext_resource type="Script" path="res://addons/color_matrix/Matrix.gd" id="1_ex2dh"]
+[ext_resource type="Script" path="res://addons/color_matrix/resources/Matrix.gd" id="1_ex2dh"]
 
 [resource]
 script = ExtResource("1_ex2dh")

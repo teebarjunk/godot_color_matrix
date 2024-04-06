@@ -1,4 +1,4 @@
-# Color Matrix v0.1
+# Color Matrix v0.2
 
 **Scroll down for previews**
 
@@ -7,6 +7,12 @@
 Apply and blend matrices to colorize a scenes or images.
 
 No bulky complex shaders that struggle to blend together. Use easy handles to create matrices which make blending easy!
+
+# Setup
+- Enable plugin.
+- Create a ColorMatrixCanvas node.
+- Set the `matrix` to whatever you want the default to be.
+- Optionally set `matrix2` to an alternative blend.
 
 # Features
 - 12 built in effects to start from & a tweakable blend amount.

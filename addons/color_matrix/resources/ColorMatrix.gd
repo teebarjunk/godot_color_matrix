@@ -1,5 +1,5 @@
-@icon("res://addons/color_matrix/color_matrix_icon.svg")
 @tool
+@icon("../icons/color_matrix_icon.svg")
 extends Resource
 class_name ColorMatrix
 # Misc Credits:
@@ -331,8 +331,8 @@ const CLRBLND_ACHROMATOMALY := Projection(
 			initial_matrix.changed.connect(_update, CONNECT_PERSIST)
 
 @export_group("Result", "result_")
-## Changes to this won't be preserved.
-## Modify the initial_matrix instead.
+## [b]Don't modify this![/b][br]
+## Modify the initial_matrix instead.[br]
 ## But do use this to save results you like, for easier usage later.
 @export var result_matrix := Matrix.new():
 	set(r):
@@ -341,6 +341,10 @@ const CLRBLND_ACHROMATOMALY := Projection(
 			# This will simply reset the entire thing.
 			# Changes won't be preserved.
 			result_matrix.changed.emit(_update.call_deferred, CONNECT_PERSIST)
+
+func _init(kwargs := {}) -> void:
+	for prop in kwargs:
+		set(prop, kwargs[prop])
 
 func _update():
 	# Create a new one in case user saved previous as a resource.
@@ -475,9 +479,9 @@ static func mat_apply_to_material(node: Node, prj: Projection, off: Vector4, par
 	
 	if not node.material:
 		if node is CanvasGroup:
-			node.material = load("res://addons/color_matrix/materials/CanvasMatrix_Material.tres")
-		else:
 			node.material = load("res://addons/color_matrix/materials/CanvasMatrix_ScreenMaterial.tres")
+		else:
+			node.material = load("res://addons/color_matrix/materials/CanvasMatrix_Material.tres")
 	
 	if node.material is ShaderMaterial:
 		var material: ShaderMaterial = node.material
